@@ -1,0 +1,251 @@
+METHODOLOGY: PNEUMONIA MISINFORMATION SIMULATION
+
+1. OVERVIEW
+This project implements a comprehensive simulation system that analyzes the impact of misinformation on patient care-seeking behavior in the context of pneumonia. The system combines machine learning, data collection from multiple sources, sentiment analysis, and agent-based modeling to create a realistic simulation environment.
+
+2. SYSTEM ARCHITECTURE
+
+2.1 Core Components:
+- Streamlit web interface for user interaction
+- Machine learning models for pneumonia detection
+- Multi-source data collection system
+- Sentiment analysis and misinformation detection
+- Agent-based simulation model
+- Data visualization and analytics
+
+2.2 Data Flow:
+Input → Preprocessing → Analysis → Simulation → Visualization → Output
+
+3. DETAILED METHODOLOGY
+
+3.1 Image Processing and Machine Learning Pipeline:
+a) Data Preprocessing:
+   - Uses Keras ImageDataGenerator for data augmentation
+   - Rescales pixel values to [0,1] range
+   - Applies transformations: shear, zoom, horizontal flip
+   - Resizes images to 64x64 pixels
+   - Converts to binary classification (Normal vs Pneumonia)
+
+b) Model Training:
+   - Logistic Regression: Linear classifier with max_iter=1000
+   - XGBoost: Gradient boosting classifier with logloss metric
+   - Training on augmented training data
+   - Evaluation on test dataset
+
+c) Model Evaluation:
+   - Accuracy, precision, recall, F1-score calculation
+   - Confusion matrix visualization
+   - Performance comparison between models
+
+3.2 Multi-Source Data Collection:
+
+a) Twitter Data:
+   - Uses Twitter API v2 via tweepy
+   - Collects recent tweets based on search query
+   - Extracts tweet text content
+   - Configurable tweet count (1-100)
+
+b) News Articles:
+   - NewsAPI integration for current news
+   - Searches for articles related to query
+   - Combines title and description text
+   - Handles API rate limits and timeouts
+
+c) Reddit Posts:
+   - Direct Reddit JSON API access
+   - Searches subreddits for relevant content
+   - Combines post title and selftext
+   - User-agent spoofing for API access
+
+d) Web Search (Tavily):
+   - Tavily AI search API integration
+   - Basic search depth with raw content
+   - Configurable result count
+   - Extracts content and raw content
+
+e) Wikipedia:
+   - Wikipedia REST API v1
+   - Page search with excerpts
+   - HTML tag removal from content
+   - Free access without API keys
+
+f) Hacker News:
+   - Algolia HN API integration
+   - Story search with text extraction
+   - HTML tag cleaning
+   - Free access
+
+g) PubMed:
+   - NCBI E-utilities API
+   - Two-step process: search then summary
+   - Medical literature extraction
+   - Free access
+
+h) CrossRef:
+   - CrossRef API for academic papers
+   - Title and abstract extraction
+   - HTML tag removal
+   - Free access
+
+3.3 Misinformation Detection:
+
+a) Sentiment Analysis:
+   - Uses TextBlob library for sentiment scoring
+   - Polarity range: -1 (negative) to +1 (positive)
+   - Threshold-based classification: <0 = misinformation flag
+
+b) Scoring Methodology:
+   - Binary classification per text item
+   - Aggregate scoring across all sources
+   - Per-source misinformation rates
+   - Overall system-wide misinformation score
+
+3.4 Agent-Based Simulation Model:
+
+a) Patient Agent:
+   - Attributes: symptom severity, trust in clinician, misinformation exposure
+   - Dynamic behavior based on misinformation levels
+   - Care-seeking behavior influenced by multiple factors
+   - Symptom reporting accuracy tracking
+
+b) Clinician Agent:
+   - Trust in patient assessment
+   - Professional judgment factors
+   - Decision-making influence on patient behavior
+
+c) Simulation Environment:
+   - MultiGrid spatial representation
+   - Random activation scheduling
+   - Configurable dimensions (width x height)
+   - Patient population size control
+
+d) Behavioral Rules:
+   - High misinformation exposure reduces care-seeking
+   - Trust in clinician increases care-seeking
+   - Symptom severity influences behavior
+   - Dynamic adaptation over simulation steps
+
+3.5 Data Collection and Analysis:
+
+a) Simulation Metrics:
+   - Symptom severity tracking
+   - Care-seeking behavior patterns
+   - Temporal evolution of behaviors
+   - Agent interaction effects
+
+b) Statistical Analysis:
+   - Mean values over time
+   - Distribution analysis
+   - Correlation studies
+   - Trend identification
+
+3.6 Visualization System:
+
+a) Model Performance:
+   - Confusion matrix heatmaps
+   - Classification report tables
+   - Accuracy metrics display
+
+b) Misinformation Analysis:
+   - Source-wise misinformation rates
+   - Sentiment distribution plots
+   - Comparative analysis charts
+
+c) Simulation Results:
+   - Scatter plots of key variables
+   - Time series of behavioral changes
+   - Violin plots for distribution analysis
+   - Interactive Streamlit components
+
+4. TECHNICAL IMPLEMENTATION
+
+4.1 Dependencies:
+- Core: streamlit, numpy, pandas, matplotlib, seaborn
+- ML: keras, scikit-learn, xgboost
+- Data Collection: tweepy, requests, textblob
+- Simulation: mesa
+- Environment: python-dotenv
+
+4.2 Configuration Management:
+- Environment variable loading (.env file)
+- API key management for external services
+- Configurable parameters via Streamlit sidebar
+- Session state management for simulation control
+
+4.3 Error Handling:
+- Try-catch blocks for API failures
+- Graceful degradation for missing data
+- User-friendly error messages
+- Fallback mechanisms for failed data sources
+
+5. SIMULATION PARAMETERS
+
+5.1 Configurable Settings:
+- Search query customization
+- Data source limits (1-100 items)
+- Training/test directory paths
+- Simulation dimensions and population
+- CLI output options
+
+5.2 Default Values:
+- 10 tweets, 10 Reddit posts, 10 web results
+- 10 Wikipedia, 10 HN, 10 PubMed, 10 CrossRef results
+- 10x10 grid with 10 patients
+- 100 simulation steps
+- 64x64 image processing
+
+6. OUTPUT AND INSIGHTS
+
+6.1 Quantitative Metrics:
+- Misinformation rates by source
+- Model accuracy scores
+- Behavioral correlation coefficients
+- Temporal trend analysis
+
+6.2 Qualitative Analysis:
+- Source reliability assessment
+- Behavioral pattern identification
+- Risk factor analysis
+- Intervention opportunity identification
+
+7. LIMITATIONS AND CONSIDERATIONS
+
+7.1 Data Quality:
+- API rate limits and availability
+- Text preprocessing accuracy
+- Sentiment analysis reliability
+- Source bias considerations
+
+7.2 Simulation Validity:
+- Simplified behavioral models
+- Limited agent interaction complexity
+- Static environment assumptions
+- Parameter sensitivity
+
+7.3 Ethical Considerations:
+- Patient privacy protection
+- Misinformation amplification risks
+- Healthcare decision influence
+- Responsible AI usage
+
+8. FUTURE ENHANCEMENTS
+
+8.1 Model Improvements:
+- Deep learning integration
+- Multi-modal data processing
+- Real-time data streaming
+- Advanced sentiment analysis
+
+8.2 Simulation Enhancements:
+- Network effects modeling
+- Temporal dynamics
+- Intervention testing
+- Validation studies
+
+8.3 User Experience:
+- Interactive visualizations
+- Custom scenario creation
+- Export capabilities
+- Collaborative features
+
+This methodology provides a comprehensive framework for understanding and extending the pneumonia misinformation simulation system, ensuring reproducibility and scientific rigor in the analysis of healthcare misinformation effects.
