@@ -1,12 +1,12 @@
 streamlit==1.47.1
-matplotlib
+matplotlib==3.10.5
 seaborn
 pandas
 numpy
 scikit-learn
 xgboost
-tensorflow==2.13.1
-keras==2.13.1
+tensorflow==2.16.1
+keras==3.3.3
 pillow
 textblob
 tweepy
@@ -15,3 +15,4 @@ requests
 beautifulsoup4
 newspaper3k
 mesa
+
