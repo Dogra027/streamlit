@@ -1,8 +1,11 @@
+import matplotlib
+matplotlib.use("Agg")  # non-GUI backend for Streamlit
+import matplotlib.pyplot as plt
 import os
 import random
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+
 import seaborn as sns
 import streamlit as st
 import re
