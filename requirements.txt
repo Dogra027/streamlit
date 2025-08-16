@@ -1,5 +1,5 @@
 streamlit==1.47.1
-matplotlib==3.10.5
+matplotlib>3.9.0
 seaborn
 pandas
 numpy
@@ -15,4 +15,5 @@ requests
 beautifulsoup4
 newspaper3k
 mesa
+
 
